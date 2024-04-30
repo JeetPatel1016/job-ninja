@@ -13,7 +13,7 @@ export type SearchQuery = {
   id: string;
   title: string;
   location: string;
-  sites: string[];
+  sites: string;
 };
 
 export type JobPosting = {

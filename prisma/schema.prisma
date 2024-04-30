@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model SearchQuery {
+  id       String       @unique @default(cuid())
+  title    String
+  location String
+  sites    String
+  jobs     JobPosting[]
+}
+
+model JobPosting {
+  id           String       @unique @default(cuid())
+  title        String
+  company      String
+  location     String
+  pay_interval String
+  pay_min      String
+  pay_max      String
+  currency     String?
+  description  String
+  date_posted  String
+  is_remote    Boolean
+  job_link     String
+  queryId      String
+  query        SearchQuery? @relation(fields: [queryId], references: [id])
+}
