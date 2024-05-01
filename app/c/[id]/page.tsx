@@ -29,14 +29,13 @@ export default async function SearchQuery({
               Scrap more Jobs
             </button>
           </div>
-          {searchQuery.jobs.length ? (
-            "1"
+          {searchQuery.jobs.filter(job => !job.deletedAt).length ? (
+            <JobListing jobs={searchQuery.jobs.filter(job => !job.deletedAt)} />
           ) : (
             <>
               <p className="mt-4 text-xl text-slate-300">No Job Postings</p>
             </>
           )}
-          {/* <JobListing query="nodejs" currentPage={1} /> */}
         </>
       ) : (
         <div className="flex flex-col items-center justify-between">

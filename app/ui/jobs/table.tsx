@@ -1,18 +1,8 @@
-import Image from "next/image";
-import ApplyStatus from "@/app/ui/jobs/status";
 import { DeleteJob, ViewJob } from "@/app/ui/jobs/buttons";
-import { listing } from "@/app/lib/jobListings";
 import { formatCurrency, formatDateToLocal } from "@/app/lib/utils";
+import { JobPosting } from "@prisma/client";
 
-export default async function JobListing({
-  query,
-  currentPage,
-}: {
-  query: string;
-  currentPage: number;
-}) {
-  const listings = listing;
-
+export default async function JobListing({ jobs }: { jobs: JobPosting[] }) {
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block w-full align-middle">
@@ -40,7 +30,7 @@ export default async function JobListing({
             </tr>
           </thead>
           <tbody className="bg-slate-600/20">
-            {listings?.map((listing) => (
+            {jobs.map((listing) => (
               <tr
                 key={listing.id}
                 className="w-full py-3 text-sm last-of-type:border-none"
@@ -55,7 +45,7 @@ export default async function JobListing({
                   {listing.location}
                 </td>
                 <td className="whitespace-nowrap px-3 py-3">
-                  {formatCurrency(listing.pay_min)}
+                  {formatCurrency(listing.pay_min, listing.pay_interval)}
                 </td>
                 <td className="whitespace-nowrap px-3 py-3">
                   {formatDateToLocal(listing.date_posted)}

@@ -27,7 +27,7 @@ export default async function Sidebar() {
           return (
             <li
               key={searchQuery.id}
-              className={`transition p-2 hover:bg-slate-600 rounded-md cursor-pointer flex justify-between ${
+              className={`transition p-2 hover:bg-slate-600 rounded cursor-pointer flex justify-between ${
                 searchQuery.id === queryID ? "activeLink" : ""
               }`}
             >
