@@ -11,11 +11,13 @@ datasource db {
 }
 
 model SearchQuery {
-  id       String       @unique @default(cuid())
-  title    String
-  location String
-  sites    String
-  jobs     JobPosting[]
+  id        String       @unique @default(cuid())
+  title     String
+  location  String
+  sites     String
+  jobs      JobPosting[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @default(now()) @updatedAt
 }
 
 model JobPosting {
@@ -33,4 +35,7 @@ model JobPosting {
   job_link     String
   queryId      String
   query        SearchQuery? @relation(fields: [queryId], references: [id])
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @default(now()) @updatedAt
+  deletedAt    DateTime?
 }
