@@ -3,12 +3,11 @@ import JobListing from "./ui/jobs/table";
 
 export default function Home() {
   return (
-    <main>
-      <h1 className="text-2xl text-slate-400">
-        <span className="font-semibold mr-2 text-white">NodeJS Developer</span>⋅
-        Job Search
-      </h1>
-      <JobListing query="nodejs" currentPage={1} />
+    <main className="h-[75%] flex flex-col items-center justify-center">
+      <h1 className="text-3xl mb-2">Welcome to Job Ninja</h1>
+      <p className="text-xl text-slate-300/80">
+        To get started, create new search query
+      </p>
     </main>
   );
 }

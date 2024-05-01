@@ -14,3 +14,7 @@ body {
 * {
   @apply outline-none;
 }
+
+.activeLink {
+  @apply bg-blue-600/90 brightness-125 hover:!bg-blue-600/90;
+}
