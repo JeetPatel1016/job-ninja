@@ -33,7 +33,7 @@ model JobPosting {
   date_posted  String
   is_remote    Boolean
   job_link     String
-  queryId      String
+  queryId      String?
   query        SearchQuery? @relation(fields: [queryId], references: [id])
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @default(now()) @updatedAt

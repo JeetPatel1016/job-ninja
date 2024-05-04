@@ -3,7 +3,8 @@ import "./globals.css";
 import { inter, sora } from "./ui/fonts";
 import Sidebar from "./ui/sidebar";
 import Image from "next/image";
-import Modal from "./ui/modal";
+import Modal from "./ui/newQueryModal";
+import DeleteModal from "./ui/deleteQueryModal";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -39,6 +40,7 @@ export default function RootLayout({
           </div>
         </div>
         <Modal />
+        <DeleteModal />
       </body>
     </html>
   );

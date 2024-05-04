@@ -15,7 +15,7 @@ export default async function Sidebar() {
     <div className="flex h-full flex-col px-3 py-4 md:px-2 gap-3">
       {/* New Button */}
       <Link
-        href="/?modal=true"
+        href="/?newQuery=true"
         className="w-full flex items-center gap-4 rounded-md transition bg-blue-600 hover:bg-blue-600/80 px-4 py-3"
       >
         <FaPlus size={16} />
@@ -37,9 +37,12 @@ export default async function Sidebar() {
               >
                 {searchQuery.title}
               </Link>
-              <button className="transition p-1 rounded-sm hover:text-rose-400">
+              <Link
+                href={`/?deleteQuery=${searchQuery.id}`}
+                className="transition p-1 rounded-sm hover:text-rose-400"
+              >
                 <FaTrashAlt />
-              </button>
+              </Link>
             </li>
           );
         })}

@@ -2,12 +2,31 @@
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { BsX } from "react-icons/bs";
+import { FormEvent } from "react";
 
 export default function Modal() {
   const searchParams = useSearchParams();
-  const modal = searchParams.get("modal");
+  const modal = searchParams.get("newQuery");
   const pathname = usePathname();
+  const router = useRouter();
+  async function submitHandler(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    try {
+      const response = await fetch("/api/queries", {
+        method: "POST",
+        body: formData,
+      });
 
+      const data = await response.json();
+      const {
+        message: { id },
+      } = data;
+      router.push(`/c/${id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
     <>
       {modal && (
@@ -22,18 +41,14 @@ export default function Modal() {
                 <BsX size={32} />
               </Link>
             </div>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-              }}
-              className="flex flex-col"
-            >
+            <form onSubmit={submitHandler} className="flex flex-col">
               <label htmlFor="jobTitle" className="text-sm mb-1">
                 Job Title
               </label>
               <input
                 className="bg-slate-600/75 focus:bg-slate-500/60 transition-colors p-2 rounded-md mb-4"
                 type="text"
+                name="title"
                 id="title"
               />
               <label htmlFor="jobLocation" className="text-sm mb-1">
@@ -42,6 +57,7 @@ export default function Modal() {
               <input
                 className="bg-slate-600/75 focus:bg-slate-500/60 transition-colors p-2 rounded-md mb-4"
                 type="text"
+                name="location"
                 id="location"
               />
               <fieldset>
@@ -52,6 +68,7 @@ export default function Modal() {
                       id="indeed"
                       type="checkbox"
                       value="indeed"
+                      name="sites"
                       className="hidden peer"
                     />
                     <label
@@ -66,6 +83,7 @@ export default function Modal() {
                       id="glassdoor"
                       type="checkbox"
                       value="glassdoor"
+                      name="sites"
                       className="hidden peer"
                     />
                     <label
@@ -80,6 +98,7 @@ export default function Modal() {
                       id="ziprecruiter"
                       type="checkbox"
                       value="ziprecruiter"
+                      name="sites"
                       className="hidden peer"
                     />
                     <label
@@ -91,7 +110,10 @@ export default function Modal() {
                   </div>
                 </div>
               </fieldset>
-              <button type="submit" className="p-2 my-1 rounded-lg bg-blue-600">
+              <button
+                type="submit"
+                className="p-2 my-1 rounded-lg bg-blue-600 text-white"
+              >
                 Search
               </button>
               <Link href={pathname} className="p-2 inline-block text-center">
