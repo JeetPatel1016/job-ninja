@@ -22,7 +22,7 @@ export default function Modal() {
       const {
         message: { id },
       } = data;
-      router.push(`/c/${id}`);
+      router.replace(`/c/${id}`);
     } catch (err) {
       console.log(err);
     }

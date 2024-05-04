@@ -16,7 +16,7 @@ body {
 }
 
 .activeLink {
-  @apply bg-blue-600/90 brightness-125 hover:!bg-blue-600/90;
+  @apply bg-blue-600/40 brightness-125 hover:!bg-blue-600/70;
 }
 
 button {

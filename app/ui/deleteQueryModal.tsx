@@ -1,5 +1,10 @@
 "use client";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import {
+  useSearchParams,
+  usePathname,
+  useRouter,
+  useParams,
+} from "next/navigation";
 import Link from "next/link";
 import { BsX } from "react-icons/bs";
 import { FormEvent } from "react";
@@ -8,6 +13,7 @@ export default function DeleteModal() {
   const searchParams = useSearchParams();
   const queryID = searchParams.get("deleteQuery");
   const pathname = usePathname();
+  const { id: thisPageID } = useParams();
   const router = useRouter();
   async function submitHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -17,7 +23,8 @@ export default function DeleteModal() {
       });
 
       const data = await response.json();
-      router.push(`/`);
+      if (thisPageID === queryID) router.push("/");
+      else router.back();
     } catch (err) {
       console.log(err);
     }
